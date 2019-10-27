@@ -59,6 +59,14 @@ public abstract class Waste {
 		return id;
 	}
 	
+	public double getDays() {
+		return daysDecompose;
+	}
+	
+	public String getOrigin() {
+		return origin;
+	}
+	
 	public void setProduct(Product product) {
 		this.product = product;
 	}
@@ -71,5 +79,7 @@ public abstract class Waste {
 	public String getSourceProduct() {
 		return sourceProduct;
 	}
+	
+
 
 }

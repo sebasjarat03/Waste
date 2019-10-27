@@ -95,7 +95,9 @@ public class Entity {
 		return msg;
 	}
 	
-	public String addWasteR(String id, String name, String origin, String color, double daysDecompose, String sourceProduct, String kind) {
+	
+	
+	public String addWasteR(String id, String name, String origin, String color, double daysDecompose, String sourceProduct, String kind, String properDispo) {
 		String msg = "";
 		if(searchWaste(name)!=null && searchWaste(name).getName().equalsIgnoreCase(name)) {
 			msg += "\n*Error: The name is already in use";
@@ -110,7 +112,7 @@ public class Entity {
 			boolean inserted = false;
 			for(int i = 0; i<waste.length && !inserted; i++) {
 				if(waste[i] == null) {
-					waste[i] = new Recyclable (id, name, origin, color, daysDecompose, sourceProduct, kind);
+					waste[i] = new Recyclable (id, name, origin, color, daysDecompose, sourceProduct, kind, properDispo);
 					inserted = true;
 					waste[i].setProduct(searchProduct(sourceProduct));
 					searchProduct(sourceProduct).setWaste(waste[i]);
@@ -193,16 +195,47 @@ public class Entity {
 		return msg;
 	}
 	
-	public double calculateHarmful(String id) {
-		double harmfulEff = 0;
+	
+	public String calculateHarmful(String id) {
+		String harmfulEff = "";
 		for(int i = 0; i<waste.length; i++) {
 			if(waste[i] != null) {
 				if(waste[i].getId().equalsIgnoreCase(id)) {
-					harmfulEff = waste[i].calculateHarmful();
+					harmfulEff = "\nThe harmful effect is= " + "[" + waste[i].calculateHarmful() + "]";
+				}
+				else {
+					harmfulEff = "\nWaste not found";
 				}
 			}
 		}
 		return harmfulEff;
 	}
+	
+	public String showUsable(String id) {
+		String msg = "";
+		boolean found = false;
+		for(int i = 0; i<waste.length && !found; i++) {
+			if(waste[i] != null) {
+				if(waste[i].getId().equalsIgnoreCase(id)) {
+					if(waste[i] instanceof Biodegradable ) {
+						Biodegradable mirror = (Biodegradable) waste[i];
+						msg = mirror.isUsable();
+						found = true;
+					}
+					if(waste[i] instanceof Recyclable) {
+						Recyclable mirror = (Recyclable) waste[i];
+						msg = mirror.isUsable();
+						found = true;
+					}
+				}
+				else {
+					msg = "Waste not found";
+				}
+			}
+		}
+		return msg;
+	}
+	
+	
 
 }

@@ -1,5 +1,7 @@
 package model;
 
+
+
 public class Product {
 	private String id;
 	private String name;
@@ -22,9 +24,7 @@ public class Product {
 		return name;
 	}
 	
-	public Waste[] getWaste() {
-		return waste;
-	}
+	
 	
 	public String toString() {
 		String msg = "[NAME]: " + name + " - [ID]: " + id + " - [DESCRIPTION]: " + description;

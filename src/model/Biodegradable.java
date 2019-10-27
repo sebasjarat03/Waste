@@ -1,6 +1,6 @@
 package model;
 
-public class Biodegradable extends Waste{
+public class Biodegradable extends Waste implements Usable{
 	private String ableComposting;
 
 	public Biodegradable(String id, String name, String origin, String color, double daysDecompose,String sourceProduct, String ableComposting) {
@@ -30,5 +30,15 @@ public class Biodegradable extends Waste{
 		return harmfulEffect;
 	}
 	
+	 public String isUsable() {
+		 String msg = "";
+		 if(super.getDays()<365 && turnToBool()) {
+			 msg = "This waste is usable";
+		 }
+		 else {
+			 msg = "This waste is not usable";
+		 }
+		 return msg;
+	 }
 
 }

@@ -49,6 +49,14 @@ public class Main {
 				System.out.print("Enter the id of the waste to calculate its harmful effect: "); String id = scs.nextLine();
 				System.out.println(entity.calculateHarmful(id));
 				break;
+			case 7:
+				System.out.print("Enter the id of the waste to see if is usable: "); String idw = scs.nextLine();
+				System.out.println(entity.showUsable(idw));
+				break;
+			case 8:
+				System.out.print("Enter the id of the product that you want to see its wastes: "); String idp = scs.nextLine();
+				
+				break;
 			}
 		}
 	}
@@ -74,8 +82,16 @@ public class Main {
 			msg = entity.addWasteI(id, name, origin, color, daysDecompose, sourceProduct, advice);
 			break;
 		case "recyclable":
-			System.out.print("Enter the kind of this waste(paper, cardboard, glass, plastic, metal)"); String kind = scs.nextLine();
-			msg = entity.addWasteR(id, name, origin, color, daysDecompose, sourceProduct, kind);
+			System.out.print("Enter the kind of this waste(paper, cardboard, glass, plastic, metal): "); String kind = scs.nextLine();
+			if(origin.equalsIgnoreCase("home") || origin.equalsIgnoreCase("industry")) {
+				System.out.print("Enter a description for the proper disposition: "); String properDispo = scs.nextLine();
+				msg = entity.addWasteR(id, name, origin, color, daysDecompose, sourceProduct, kind,properDispo);
+			}
+			else {
+				String properDispo = null;
+				msg = entity.addWasteR(id, name, origin, color, daysDecompose, sourceProduct, kind,properDispo);
+			}
+			
 			break;
 		default: 
 			System.out.println("This type of waste doesn't exists");
