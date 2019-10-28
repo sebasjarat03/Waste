@@ -24,6 +24,10 @@ public class Product {
 		return name;
 	}
 	
+	public Waste[] getWaste() {
+		
+		return waste;
+	}
 	
 	
 	public String toString() {

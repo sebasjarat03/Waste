@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Arrays;
+
 public class Entity {
 	public final int MAX = 1000;
 	private Waste[] waste;
@@ -197,15 +199,14 @@ public class Entity {
 	
 	
 	public String calculateHarmful(String id) {
+		boolean found = false;
 		String harmfulEff = "";
-		for(int i = 0; i<waste.length; i++) {
+		for(int i = 0; i<waste.length && !found; i++) {
 			if(waste[i] != null) {
 				if(waste[i].getId().equalsIgnoreCase(id)) {
 					harmfulEff = "\nThe harmful effect is= " + "[" + waste[i].calculateHarmful() + "]";
 				}
-				else {
-					harmfulEff = "\nWaste not found";
-				}
+				
 			}
 		}
 		return harmfulEff;
@@ -236,6 +237,116 @@ public class Entity {
 		return msg;
 	}
 	
+	/**public Waste[] getNotNullWastes(Waste[] wastes_with_null_positions){
+        // Count how many positions aren't null
+        int num_of_not_null_positions = 0;
+        for(Waste waste: wastes_with_null_positions){
+            num_of_not_null_positions += (waste != null) ? 1 : 0; 
+        }
+        
+        // Intiialize clean waste array
+        Waste[] clean_array = new Waste[num_of_not_null_positions];
+        int j= 0; // Counter for clean array
+        for(int i = 0; i < wastes_with_null_positions.length; i++){
+            if(wastes_with_null_positions[i] != null){
+                clean_array[j] = wastes_with_null_positions[i];
+                j++;
+            }
+        }
+        System.out.println(Arrays.toString(clean_array));
+        return clean_array;
+    }*/
+
 	
+	/**public Waste[] bubble(Waste[] array)
+    {
+      Waste mirror;
+      Waste[] organizedArray;
+      for(int i = 1; i < (array.length-1); i++)
+      {
+        for(int j = 0;j < (array.length-1);j++)
+        {
+          if(array[j].calculateHarmful() < array[j+1].calculateHarmful())
+          {
+            mirror = array[j];
+            array[j] = array[j+1];
+            array[j+1] = mirror;
+          }   
+        }
+      }
+      organizedArray = array;
+      return organizedArray;
+    }*/
+	/**public static Waste[] bubble(Waste[] array) {
+        Waste temp;
+        for(int i = 0; i < array.length; i++){
+          for(int j = i +1; j<array.length; j++){
+            if(array[i].calculateHarmful() > array[j].calculateHarmful()){
+                temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+          }
+        }
+        return array;
+      }*/
+	
+	public Waste[] searchId(String id) {
+		int count = 0;
+		for (int i = 0; i < waste.length; i++) {
+			if(waste[i] != null) {
+			if(waste[i].getSourceProduct() == id) {
+				count++;
+			}
+			}
+		}
+		
+		
+		
+		Waste[] list = new Waste[count];
+		
+		for (int i = 0; i < waste.length; i++) {
+			if(waste[i] != null) {
+			if(waste[i].getSourceProduct() == id) {
+				list[i] = waste[i];
+			}
+			}
+		}
+		
+		if(count >= 2) {
+		
+		Waste temp;
+        for(int i=1;i < list.length;i++){
+            for (int j=0 ; j < list.length- 1; j++){
+                if (list[j].calculateHarmful() < list[j+1].calculateHarmful()){
+                    temp = list[j];
+                    list[j] = list[j+1];
+                    list[j+1] = temp;
+                }
+            }
+        }
+    
+	}
+		
+		return list;
+	}
+	
+	public String organizedWastes(String id) {
+		String msg = "";
+		for(int i = 0; i<product.length; i++) {
+			if(product[i] != null) {
+				if(product[i].getId().equalsIgnoreCase(id)) {
+				 Waste[] sorted_wastes = searchId(id);
+					
+					for(int j = 0; j<sorted_wastes.length; j++) {
+						
+						msg += "\n" + sorted_wastes[j].getName() + "  " + sorted_wastes[j].calculateHarmful();
+						
+					}
+				}
+			}
+		}
+		return msg;
+	}
 
 }

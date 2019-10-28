@@ -21,7 +21,7 @@ public class Main {
 	
 	public void menu() {
 		int select = 0;
-		while(select != 9) {
+		while(select != 10) {
 			System.out.println("\nWelcome! \nSelect an option:\n");
 			System.out.println("1) Add a waste 		\n2) Show wastes reports 		\n3) Add a product");
 			System.out.println("4) Search waste info by its name or by its product's id    \n5) Show list of products \n6) Calculate the waste's harmful effect");
@@ -55,8 +55,9 @@ public class Main {
 				break;
 			case 8:
 				System.out.print("Enter the id of the product that you want to see its wastes: "); String idp = scs.nextLine();
-				
+				System.out.println(entity.organizedWastes(idp));
 				break;
+			
 			}
 		}
 	}
